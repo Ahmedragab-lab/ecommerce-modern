@@ -27,28 +27,28 @@ class CustomerRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'first_name'    => 'required',
-                    'last_name'     => 'required',
-                    'username'      => 'required|max:20|unique:users',
+                    'firstname'     => 'required',
+                    'lastname'      => 'required',
+                    // 'username'      => 'required|max:20|unique:users',
                     'email'         => 'required|email|max:255|unique:users',
-                    'mobile'        => 'required|numeric|unique:users',
+                    'phone'         => 'required|numeric|unique:users',
                     'status'        => 'required',
-                    'password'      => 'required|min:8',
-                    'user_image'    => 'nullable|mimes:jpg,jpeg,png,svg|max:20000'
+                    'password'      => 'required|min:6',
+                    'image'         => 'nullable|mimes:jpg,jpeg,png,svg|max:20000'
                 ];
             }
             case 'PUT':
             case 'PATCH':
             {
                 return [
-                    'first_name'    => 'required',
-                    'last_name'     => 'required',
-                    'username'      => 'required|max:20|unique:users,username,'.$this->route()->customer->id,
-                    'email'         => 'required|email|max:255|unique:users,email,'.$this->route()->customer->id,
-                    'mobile'        => 'required|numeric|unique:users,mobile,'.$this->route()->customer->id,
+                    'firstname'     => 'required',
+                    'lastname'      => 'required',
+                    // 'username'      => 'required|max:20|unique:users,username,'.$this->route()->customer->id,
+                    'email'         => 'required|email|max:255|unique:users,email,'.$this->route()->user->id,
+                    'phone'         => 'required|numeric|unique:users,phone,'.$this->route()->user->id,
                     'status'        => 'required',
-                    'password'      => 'nullable|min:8',
-                    'user_image'    => 'nullable|mimes:jpg,jpeg,png,svg|max:20000'
+                    'password'      => 'nullable|min:6',
+                    'image'         => 'nullable|mimes:jpg,jpeg,png,svg|max:20000'
                 ];
             }
             default: break;

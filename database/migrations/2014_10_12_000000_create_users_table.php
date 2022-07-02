@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('firstname');
             $table->string('lastname');
+            // $table->string('username')->unique();
             $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -25,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->unsignedTinyInteger('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            // $table->boolean('receive_emails')->default(true);
         });
     }
 

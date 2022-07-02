@@ -16,6 +16,12 @@
                 <i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Admin Panels"></i>
             </li>
             <li class=" nav-item">
+                <a href="{{ route('admin.users.index') }}" >
+                    <i class="icon-user"></i>
+                    <span class="menu-title" data-i18n="eCommerce">Customers</span>
+                </a>
+            </li>
+            <li class=" nav-item">
                 <a href="{{ route('admin.product_categories.index') }}" >
                     <i class="icon-notebook"></i>
                     <span class="menu-title" data-i18n="eCommerce">Categories</span>

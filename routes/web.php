@@ -15,6 +15,9 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     Route::group(['middleware'=>['Roles','role:admin|supervisor']],function(){
         Route::get('/dashboard',[Dashboard\DashboardController::class,'index'])->name('dashboard');
 
+        Route::resource('/users',Dashboard\CustomerController::class);
+        Route::delete('/users/bulk_delete/{ids}', [Dashboard\CustomerController::class,'bulkDelete'])->name('users.bulk_delete');
+
         Route::resource('/product_categories',Dashboard\ProductCategoriesController::class);
         Route::delete('/product_categories/bulk_delete/{ids}', [Dashboard\ProductCategoriesController::class,'bulkDelete'])->name('product_categories.bulk_delete');
 
