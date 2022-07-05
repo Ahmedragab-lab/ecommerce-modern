@@ -1,10 +1,14 @@
 <div class="bn-group">
+    @if (auth()->user()->hasPermission('update_products'))
     <a class="btn btn-success btn-sm fonticon-wrap width-50" href="{{ route('admin.products.edit',$product->id )}}" title="edit">
         <i class="icon-note"></i>
     </a>
+    @endif
+    @if (auth()->user()->hasPermission('delete_products'))
     <button type="button" class="btn btn-danger btn-sm width-50" data-toggle="modal" data-target="#delete{{ $product->id }}" title="delete">
         <i class="icon-trash"></i>
     </button>
+    @endif
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="form-group">
             <!-- Modal -->

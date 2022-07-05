@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class RoleController extends Controller
 {
-    protected $models = ['roles','admins','users','product_category','product','tag','review','coupon'];
+    protected $models = ['roles','admins','users','product_categories','products','tags','reviews','coupons'];
     protected $permissionMaps = ['create', 'read', 'update', 'delete'];
 
     public function __construct()

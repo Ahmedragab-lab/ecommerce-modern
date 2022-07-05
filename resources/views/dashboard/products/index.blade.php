@@ -41,16 +41,19 @@
                                 <a href="{{ route('admin.products.index') }}" class="btn btn-info mb-3 " style="margin-left: 50px;float: left;">
                                     <i class="icon-action-undo"></i> Back to product
                                 </a>
+                                @if (auth()->user()->hasPermission('create_products'))
                                 <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3 " style="margin-right: 10px">
                                     <i class="icon-plus"></i> Add new product
                                 </a>
+                                @endif
+                                @if (auth()->user()->hasPermission('delete_products'))
                                 <button type="button" class="btn btn-warning mb-3" style="margin-right: 10px"
                                     id="btn_delete_all" data-toggle="modal"
                                     data-target="#bulkdelete" >
                                     <i class="icon-trash"></i>
                                     Delete All
                                 </button>
-
+                                @endif
                                 <div class="card-body card-dashboard">
                                     @include('dashboard.products.filter')
                                     <div class="table-responsive">
