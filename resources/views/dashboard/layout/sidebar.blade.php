@@ -15,42 +15,70 @@
                 <span data-i18n="Admin Panels">Admin Panels</span>
                 <i class="la la-ellipsis-h" data-toggle="tooltip" data-placement="right" data-original-title="Admin Panels"></i>
             </li>
+            @if (auth()->user()->hasPermission('read_roles'))
+                <li class=" nav-item">
+                    <a href="{{ route('admin.roles.index') }}" >
+                        <i class="icon-lock"></i>
+                        <span class="menu-title" data-i18n="eCommerce">Roles</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_admins'))
+                <li class=" nav-item">
+                    <a href="{{ route('admin.admins.index') }}" >
+                        <i class="icon-graduation"></i>
+                        <span class="menu-title" data-i18n="eCommerce">Admins</span>
+                    </a>
+                </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_users'))
             <li class=" nav-item">
                 <a href="{{ route('admin.users.index') }}" >
                     <i class="icon-user"></i>
-                    <span class="menu-title" data-i18n="eCommerce">Customers</span>
+                    <span class="menu-title" data-i18n="eCommerce">Users</span>
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_product_categories'))
             <li class=" nav-item">
                 <a href="{{ route('admin.product_categories.index') }}" >
                     <i class="icon-notebook"></i>
                     <span class="menu-title" data-i18n="eCommerce">Categories</span>
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_products'))
             <li class=" nav-item">
                 <a href="{{ route('admin.products.index') }}" >
                     <i class="icon-handbag"></i>
                     <span class="menu-title" data-i18n="eCommerce">Products</span>
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_tags'))
             <li class=" nav-item">
                 <a href="{{ route('admin.tags.index') }}" >
                     <i class="icon-tag"></i>
                     <span class="menu-title" data-i18n="eCommerce">Tags</span>
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_coupons'))
             <li class=" nav-item">
                 <a href="{{ route('admin.coupons.index') }}" >
                     <i class="icon-speedometer"></i>
                     <span class="menu-title" data-i18n="eCommerce">Coupons</span>
                 </a>
             </li>
+            @endif
+            @if (auth()->user()->hasPermission('read_reviews'))
             <li class=" nav-item">
                 <a href="{{ route('admin.reviews.index') }}" >
                     <i class="icon-bubbles"></i>
                     <span class="menu-title" data-i18n="eCommerce">Product Reviews</span>
                 </a>
             </li>
+            @endif
             {{-- <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title" data-i18n="Templates">Templates</span></a>
                 <ul class="menu-content">
                     <li><a class="menu-item" href="#"><i></i><span data-i18n="Vertical">Vertical</span></a>

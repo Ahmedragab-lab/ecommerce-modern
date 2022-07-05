@@ -16,6 +16,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_products')->only(['index']);
+        $this->middleware('permission:create_products')->only(['create', 'store']);
+        $this->middleware('permission:update_products')->only(['edit', 'update']);
+        $this->middleware('permission:delete_products')->only(['delete', 'bulk_delete']);
+
+    }// end of __construct
     public function index()
     {
         $products=Product::with('category','tags','firstMedia')

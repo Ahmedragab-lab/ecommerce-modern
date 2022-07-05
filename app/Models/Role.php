@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Mindscms\Entrust\EntrustRole;
-
-
-class Role extends EntrustRole
+use Laratrust\Models\LaratrustRole;
+use Nicolaslopezj\Searchable\SearchableTrait;
+class Role extends LaratrustRole
 {
-    protected $guarded = [];
+    use SearchableTrait;
+    public $guarded = [];
+    protected $searchable = [
+        'columns' => [
+            'roles.name' => 10,
+        ]
+    ];
+    public function created_at()
+    {
+        return $this->created_at->format('Y-m-d') ;
+    }
 }

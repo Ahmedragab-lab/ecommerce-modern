@@ -40,7 +40,10 @@
 
     <script src="{{ asset('vendor/pickdate/picker.js') }}"></script>
     <script src="{{ asset('vendor/pickdate/picker.date.js') }}"></script>
-
+    {{-- Start my custom js --}}
+    <script src="{{ asset('dashboard/app-assets/js/custom.js') }}"></script>
+    <script src="{{ asset('dashboard/app-assets/js/index.js') }}"></script>
+    {{-- End my custom js --}}
     @yield('js')
 
     <!-- END: Page JS-->

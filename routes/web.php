@@ -12,9 +12,15 @@ Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
 
 
 Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
-    Route::group(['middleware'=>['Roles','role:admin|supervisor']],function(){
+    Route::group(['middleware'=>['auth']],function(){
         Route::get('/dashboard',[Dashboard\DashboardController::class,'index'])->name('dashboard');
-
+        //roles
+        Route::resource('/roles',Dashboard\RoleController::class);
+        Route::delete('/roles/bulk_delete/{ids}', [Dashboard\RoleController::class,'bulkDelete'])->name('roles.bulk_delete');
+        //admins
+        Route::resource('/admins',Dashboard\AdminController::class);
+        Route::delete('/admins/bulk_delete/{ids}', [Dashboard\AdminController::class,'bulkDelete'])->name('admins.bulk_delete');
+        //user customer
         Route::resource('/users',Dashboard\CustomerController::class);
         Route::delete('/users/bulk_delete/{ids}', [Dashboard\CustomerController::class,'bulkDelete'])->name('users.bulk_delete');
 

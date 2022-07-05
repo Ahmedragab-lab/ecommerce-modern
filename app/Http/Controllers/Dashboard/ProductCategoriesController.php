@@ -14,6 +14,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductCategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_product_categories')->only(['index']);
+        $this->middleware('permission:create_product_categories')->only(['create', 'store']);
+        $this->middleware('permission:update_product_categories')->only(['edit', 'update']);
+        $this->middleware('permission:delete_product_categories')->only(['delete', 'bulk_delete']);
+    }// end of __construct
 
     public function index()
     {

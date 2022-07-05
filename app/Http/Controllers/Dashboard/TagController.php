@@ -10,6 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_tags')->only(['index']);
+        $this->middleware('permission:create_tags')->only(['create', 'store']);
+        $this->middleware('permission:update_tags')->only(['edit', 'update']);
+        $this->middleware('permission:delete_tags')->only(['delete', 'bulk_delete']);
+
+    }// end of __construct
     public function index()
     {
         $tags=Tag::with('products')

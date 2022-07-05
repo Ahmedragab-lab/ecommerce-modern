@@ -10,6 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class ReviewController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_reviews')->only(['index']);
+        $this->middleware('permission:create_reviews')->only(['create', 'store']);
+        $this->middleware('permission:update_reviews')->only(['edit', 'update']);
+        $this->middleware('permission:delete_reviews')->only(['delete', 'bulk_delete']);
+
+    }// end of __construct
     public function index()
     {
         $reviews=Review::

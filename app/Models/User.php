@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Mindscms\Entrust\Traits\EntrustUserWithPermissionsTrait;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Laratrust\Traits\LaratrustUserTrait;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable ,EntrustUserWithPermissionsTrait ,SearchableTrait;
+    use LaratrustUserTrait;
+    use HasApiTokens, HasFactory, Notifiable ,SearchableTrait;
 
     protected $guarded=[];
     protected $appends=['full_name'];
@@ -35,6 +36,10 @@ class User extends Authenticatable
        public function userImage()
        {
            return asset('images/users/'.$this->image);
+       }
+       public function adminImage()
+       {
+           return asset('images/admins/'.$this->image);
        }
        public function status(): string
        {

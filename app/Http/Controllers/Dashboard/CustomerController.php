@@ -13,11 +13,17 @@ use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_users')->only(['index']);
+        $this->middleware('permission:create_users')->only(['create', 'store']);
+        $this->middleware('permission:update_users')->only(['edit', 'update']);
+        $this->middleware('permission:delete_users')->only(['delete', 'bulk_delete']);
+
+    }// end of __construct
     public function index()
     {
-        $users=User::whereHas('roles',function($q){
-            $q->where('name','customer');
-        })
+        $users=User::whereRoleIs('user')
         ->when(\request()->keyword != null, function ($query) {
             $query->search(\request()->keyword);
         })
@@ -51,7 +57,8 @@ class CustomerController extends Controller
                 $input['image'] = $file_name;
             }
             $user=User::create($input);
-            $user->attachRole(Role::where('name','customer')->first()->id);
+            $user->attachRole('user');
+            // $user->attachRole(Role::where('name','customer')->first()->id);
             Alert::success('تمت الاضافه بنجاح', 'user created successfully');
             return redirect()->route('admin.users.index');
         }

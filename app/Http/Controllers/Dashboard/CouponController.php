@@ -10,6 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class CouponController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:read_coupons')->only(['index']);
+        $this->middleware('permission:create_coupons')->only(['create', 'store']);
+        $this->middleware('permission:update_coupons')->only(['edit', 'update']);
+        $this->middleware('permission:delete_coupons')->only(['delete', 'bulk_delete']);
+
+    }// end of __construct
     public function index()
     {
         $coupons=Coupon::query()

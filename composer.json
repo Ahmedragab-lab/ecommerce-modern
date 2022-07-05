@@ -15,9 +15,9 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "mindscms/entrust": "^2.5",
         "nicolaslopezj/searchable": "^1.13",
         "realrashid/sweet-alert": "^5.1",
+        "santigarcor/laratrust": "^7.1",
         "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {
