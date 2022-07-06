@@ -39,6 +39,15 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
         Route::resource('/reviews',Dashboard\ReviewController::class);
         Route::delete('/reviews/bulk_delete/{ids}', [Dashboard\ReviewController::class,'bulkDelete'])->name('reviews.bulk_delete');
+        //country state an city
+        Route::resource('/countries',Dashboard\CountryController::class);
+        Route::delete('/countries/bulk_delete/{ids}', [Dashboard\CountryController::class,'bulkDelete'])->name('countries.bulk_delete');
+
+        Route::resource('/states',Dashboard\StateController::class);
+        Route::delete('/states/bulk_delete/{ids}', [Dashboard\StateController::class,'bulkDelete'])->name('states.bulk_delete');
+        
+        Route::resource('/cities',Dashboard\CityController::class);
+        Route::delete('/cities/bulk_delete/{ids}', [Dashboard\CityController::class,'bulkDelete'])->name('cities.bulk_delete');
     });
 });
 
