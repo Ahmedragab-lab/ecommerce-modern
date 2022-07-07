@@ -93,7 +93,7 @@
                                                                    placeholder="phone"
                                                                    name="phone"
                                                                    maxlength="11" minlength="11"  onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                                   value="{{ old('phone',$admin->phone) }}" >
+                                                                   value="{{ old('phone',$admin->phone) }}" />
                                                             @error('phone')
                                                             <span class="text-danger">{{ $message }}</span>
                                                             @enderror

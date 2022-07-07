@@ -14,6 +14,7 @@ Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
 Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     Route::group(['middleware'=>['auth']],function(){
         Route::get('/dashboard',[Dashboard\DashboardController::class,'index'])->name('dashboard');
+        Route::resource('/profile',Dashboard\ProfileController::class)->only('index','edit','update');
         //roles
         Route::resource('/roles',Dashboard\RoleController::class);
         Route::delete('/roles/bulk_delete/{ids}', [Dashboard\RoleController::class,'bulkDelete'])->name('roles.bulk_delete');
@@ -45,7 +46,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
         Route::resource('/states',Dashboard\StateController::class);
         Route::delete('/states/bulk_delete/{ids}', [Dashboard\StateController::class,'bulkDelete'])->name('states.bulk_delete');
-        
+
         Route::resource('/cities',Dashboard\CityController::class);
         Route::delete('/cities/bulk_delete/{ids}', [Dashboard\CityController::class,'bulkDelete'])->name('cities.bulk_delete');
     });

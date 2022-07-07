@@ -176,8 +176,24 @@
                             <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all messages</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown"><span class="mr-1 user-name text-bold-700">{{ Auth::user()->firstname }}{{ Auth::user()->lastname }}</span><span class="avatar avatar-online"><img src="{{ asset('dashboard/app-assets/images/portrait/small/avatar-s-19.png') }}" alt="avatar"><i></i></span></a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="user-profile.html"><i class="ft-user"></i> Edit Profile</a><a class="dropdown-item" href="app-kanban.html"><i class="ft-clipboard"></i> Todo</a><a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
+                    <li class="dropdown dropdown-user nav-item">
+                        <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                            <span class="mr-1 user-name text-bold-700">
+                                {{ Auth::user()->full_name }}
+                            </span>
+                            <span class="avatar avatar-online">
+                                @if(Auth::user()->image)
+                                <img src="{{ Auth::user()->adminImage() }}" alt="{{ Auth::user()->full_name }}">
+                                @else
+                                <img src="{{ asset('images/no-image.jpg') }}" alt="{{Auth::user()->full_name }}">
+                                @endif
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
+                                <i class="ft-user"></i> My profile
+                            </a>
+                            <a class="dropdown-item" href="app-kanban.html"><i class="ft-clipboard"></i> Todo</a><a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item"
                             href="{{ route('logout') }}"

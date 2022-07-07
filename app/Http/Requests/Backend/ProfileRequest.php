@@ -4,7 +4,7 @@ namespace App\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SupervisorRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -42,8 +42,8 @@ class SupervisorRequest extends FormRequest
                 return [
                     'firstname'     => 'required',
                     'lastname'      => 'required',
-                    'email'         => 'required|email|max:255|unique:users,email,'.$this->route()->admin->id,
-                    'phone'         => 'required|numeric|unique:users,phone,'.$this->route()->admin->id,
+                    'email'         => 'required|email|max:255|unique:users,id,'.$this->route()->parameter('id'),
+                    'phone'         => 'required|numeric|unique:users,id,'.$this->route()->parameter('id'),
                     'status'        => 'required',
                     'password'      => 'nullable|min:6',
                     'image'         => 'nullable|mimes:jpg,jpeg,png,svg|max:20000'
