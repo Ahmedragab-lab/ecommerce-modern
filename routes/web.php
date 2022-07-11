@@ -5,14 +5,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend;
 use App\Http\Controllers\Dashboard;
+use App\Http\Livewire;
 
-Route::get('/',[Frontend\HomeController::class,'index']);
+Route::get('/',Livewire\Frontend\Home::class)->name('home');
+Route::get('category/{slug}',Livewire\Frontend\Category::class)->name('category');
+Route::get('product_details/{slug}',Livewire\Frontend\ProductDetails::class)->name('product_details');
+// Route::get('/',[Frontend\HomeController::class,'index']);
+// Route::get('/category/{slug}',[Frontend\HomeController::class,'category'])->name('category');
+// Route::get('/shop',[Frontend\HomeController::class,'shop'])->name('shop');
+// Route::get('/product_details/{slug}',[Frontend\HomeController::class,'product_details'])->name('product_details');
+
+
 Auth::routes();
-Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
+Route::group(['middleware' => ['auth', 'role:user|admin|super_admin']], function () {
+    // Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
+    // Route::get('/home',Livewire\Frontend\Home::class,'render')->name('home');
+
+});
 
 
+//route for dashboard
 Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
-    Route::group(['middleware'=>['auth']],function(){
+    Route::group(['middleware'=>['auth','role:admin|super_admin']],function(){
         Route::get('/dashboard',[Dashboard\DashboardController::class,'index'])->name('dashboard');
         Route::resource('/profile',Dashboard\ProfileController::class)->only('index','edit','update');
         //roles
@@ -52,10 +66,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
     });
 });
 
-
-
-
-
+Route::any('{any}',[Frontend\HomeController::class,'index'])->where('any','.*');
 
 
 

@@ -27,6 +27,7 @@ class Product extends Model
             'tags.name' => 10,
         ]
     ];
+    //func ***********************************************************************************************************************
     public function status()
     {
         return $this->status ? 'Active' : 'Inactive';
@@ -39,7 +40,27 @@ class Product extends Model
     {
         return $this->created_at->diffforhumans();
     }
+    //scopes ***********************************************************************************************************************
+    public function scopeFeatured($query)
+    {
+          return $query->whereFeatured(true);
+    }
+    public function scopeActive($query)
+    {
+          return $query->whereStatus(true);
+    }
+    public function scopeHasQuantity($query)
+    {
+        return $query->where('quantity','>','0');
+    }
+    public function scopeActiveCategory($query)
+    {
+        return $query->whereHas('category',function($q){
+            $q->whereStatus(1);
+        });
+    }
 
+//rel ***********************************************************************************************************************
     public function category(): BelongsTo
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id', 'id');
@@ -56,7 +77,6 @@ class Product extends Model
     {
         return $this->MorphMany(Media::class, 'mediable');
     }
-
     public function reviews(): HasMany
     {
         return $this->hasMany(Review::class);

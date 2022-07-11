@@ -193,7 +193,8 @@
                             <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
                                 <i class="ft-user"></i> My profile
                             </a>
-                            <a class="dropdown-item" href="app-kanban.html"><i class="ft-clipboard"></i> Todo</a><a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
+                            <a class="dropdown-item" href="{{ route('home') }}"><i class="ft-clipboard"></i>Go to web</a>
+                            <a class="dropdown-item" href="user-cards.html"><i class="ft-check-square"></i> Task</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item"
                             href="{{ route('logout') }}"
