@@ -43,6 +43,7 @@ class ProductModalShared extends Component
             Cart::instance('cart')->add($this->productModal->id, $this->productModal->name, $this->quantity, $this->productModal->price)
             ->associate(Product::class);
             $this->quantity = 1;
+            $this->emitTo('frontend.cart-count-component','refreshComponent');
             $this->alert('success', 'Product added to cart!');
         }
     }
@@ -57,6 +58,7 @@ class ProductModalShared extends Component
         else {
             Cart::instance('wishlist')->add($this->productModal->id, $this->productModal->name, 1, $this->productModal->price)
             ->associate(Product::class);
+            $this->emitTo('frontend.wishlist-count-component','refreshComponent');
             $this->alert('success', 'Product added to wishlist!');
         }
     }

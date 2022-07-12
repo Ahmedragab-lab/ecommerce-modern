@@ -64,7 +64,7 @@ class UserSeeder extends Seeder
                 'phone'             => '010' . $faker->numberBetween(10000000, 99999999),
                 'email'             => $faker->unique()->safeEmail,
                 'password'          => bcrypt('123123'),
-                'image'             => 'avatar.svg',
+                'image'             => rand(1,7).'.jpg',
                 'status'            => 1,
                 'remember_token'     => Str::random(10),
                 'email_verified_at' => now(),

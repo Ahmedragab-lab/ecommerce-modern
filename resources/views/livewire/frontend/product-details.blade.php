@@ -51,7 +51,7 @@
                         @if($product->media()->count() > 0)
                             @foreach($product->media as $media)
                             <div class="swiper-slide h-auto swiper-thumb-item mb-3">
-                                <img class="w-100" src="{{ asset('images/products/' . $media->file_name) }}" alt="{{ $product->name }}">
+                                <img class="w-100 " src="{{ asset('images/products/' . $media->file_name) }}" alt="{{ $product->name }}">
                             </div>
                             @endforeach
                         @endif
@@ -63,11 +63,12 @@
                     <div class="swiper-wrapper">
                         @if($product->media()->count() > 0)
                         @foreach($product->media as $media)
-                          <div class="swiper-slide h-auto swiper-thumb-item mb-3">
-                            <div class="swiper-slide h-auto">
+                          <div class="swiper-slide  swiper-thumb-item mb-3">
+                            <div class="swiper-slide ">
                                 <a class="glightbox product-view" href="{{ asset('images/products/' . $media->file_name) }}"
                                     data-gallery="gallery2" data-glightbox="Product item 1">
-                                    <img class="img-fluid" src="{{ asset('images/products/' . $media->file_name) }}" alt="{{ $product->name }}">
+                                    <img class="img-fluid " style="width:1000px; height:500px;"
+                                    src="{{ asset('images/products/' . $media->file_name) }}" alt="{{ $product->name }}">
                                 </a>
                             </div>
                           </div>

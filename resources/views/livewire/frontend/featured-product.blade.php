@@ -36,6 +36,11 @@
                       </div>
                   </div>
                   @empty
+                    <div class="col-12">
+                        <div class="alert alert-info">
+                        <p class="mb-0">No products found</p>
+                        </div>
+                    </div>
                   @endforelse
               </div>
         </div>
