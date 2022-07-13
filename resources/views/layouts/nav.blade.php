@@ -11,7 +11,7 @@
               <!-- Link--><a class="nav-link active" href="{{ route('home') }}">Home</a>
             </li>
             <li class="nav-item">
-              <!-- Link--><a class="nav-link" href="#">Shop</a>
+              <!-- Link--><a class="nav-link" href="{{ route('shop') }}">Shop</a>
             </li>
             <li class="nav-item">
               <!-- Link--><a class="nav-link" href="#">Product detail</a>

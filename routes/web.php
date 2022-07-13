@@ -10,6 +10,9 @@ use App\Http\Livewire;
 Route::get('/',Livewire\Frontend\Home::class)->name('home');
 Route::get('category/{slug}',Livewire\Frontend\Category::class)->name('category');
 Route::get('product_details/{slug}',Livewire\Frontend\ProductDetails::class)->name('product_details');
+Route::get('shop/{slug?}',Livewire\Frontend\Shop::class)->name('shop');
+
+
 // Route::get('/',[Frontend\HomeController::class,'index']);
 // Route::get('/category/{slug}',[Frontend\HomeController::class,'category'])->name('category');
 // Route::get('/shop',[Frontend\HomeController::class,'shop'])->name('shop');
