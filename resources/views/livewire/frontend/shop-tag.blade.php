@@ -1,3 +1,4 @@
+
 <div >
     <livewire:frontend.product-modal-shared />
     <div class="container">
@@ -48,7 +49,6 @@
                                 @endforelse
                             </ul>
                         </div>
-                        {{-- <livewire:frontend.shop-tag /> --}}
                         <h6 class="text-uppercase mb-4">Price range</h6>
                         <div class="price-range pt-4 mb-5">
                         <div id="range"></div>

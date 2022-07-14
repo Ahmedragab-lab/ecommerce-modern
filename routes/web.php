@@ -11,6 +11,8 @@ Route::get('/',Livewire\Frontend\Home::class)->name('home');
 Route::get('category/{slug}',Livewire\Frontend\Category::class)->name('category');
 Route::get('product_details/{slug}',Livewire\Frontend\ProductDetails::class)->name('product_details');
 Route::get('shop/{slug?}',Livewire\Frontend\Shop::class)->name('shop');
+Route::get('shoptag/{slug?}',Livewire\Frontend\ShopTag::class)->name('shoptag');
+
 
 
 // Route::get('/',[Frontend\HomeController::class,'index']);
@@ -23,7 +25,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth', 'role:user|admin|super_admin']], function () {
     // Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
     // Route::get('/home',Livewire\Frontend\Home::class,'render')->name('home');
-
+    Route::get('shopcart',Livewire\Frontend\ShopCart::class)->name('shopcart');
 });
 
 

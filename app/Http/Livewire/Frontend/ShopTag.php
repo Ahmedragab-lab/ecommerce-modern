@@ -3,13 +3,12 @@
 namespace App\Http\Livewire\Frontend;
 
 use App\Models\Product;
-use App\Models\ProductCategory;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Cart;
 use Livewire\WithPagination;
 
-class Shop extends Component
+class ShopTag extends Component
 {
     use WithPagination,LivewireAlert;
     protected $paginationTheme = 'bootstrap';
@@ -54,7 +53,6 @@ class Shop extends Component
             $this->alert('success', 'Product added to wishlist!');
         }
     }
-
     public function render()
     {
         switch ($this->sorting) {
@@ -82,31 +80,17 @@ class Shop extends Component
             ->orderBy($sort_field,$sort_type)
             ->paginate($this->pagesize);
         } else {
-            $product_category = ProductCategory::whereSlug($this->slug)->whereStatus(true)->first();
-            if (is_null($product_category->parent_id)) {
-                $categoriesIds = ProductCategory::whereParentId($product_category->id)
-                    ->whereStatus(true)->pluck('id')->toArray();
-                $products = $products->whereHas('category', function ($query) use ($categoriesIds) {
-                    $query->whereIn('id', $categoriesIds);
-                })
-                ->Active()
-                ->HasQuantity()
-                ->orderBy($sort_field,$sort_type)
-                ->paginate($this->pagesize);
-            } else {
-                $products = $products->with('category')->whereHas('category', function ($query) {
-                    $query->where([
-                        'slug' => $this->slug,
-                        'status' => true
-                    ]);
-                })
-                ->Active()
-                ->HasQuantity()
-                ->orderBy($sort_field,$sort_type)
-                ->paginate($this->pagesize);
-            }
+            $products = $products->with('tags')->whereHas('tags', function ($query) {
+                $query->where([
+                    'slug' => $this->slug,
+                    'status' => true,
+                ]);
+            })->Active()
+            ->HasQuantity()
+            ->orderBy($sort_field,$sort_type)
+            ->paginate($this->pagesize);
         }
-        return view('livewire.frontend.shop',['products' => $products])
-                                              ->layout('layouts.master');
+        return view('livewire.frontend.shop-tag',['products' => $products])
+                                               ->layout('layouts.master');
     }
 }
