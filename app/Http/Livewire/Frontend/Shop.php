@@ -6,7 +6,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\WithPagination;
 
 class Shop extends Component

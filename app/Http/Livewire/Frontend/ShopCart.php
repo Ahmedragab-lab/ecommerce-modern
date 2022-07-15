@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Livewire\Frontend;
+use App\Models\Product;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class ShopCart extends Component

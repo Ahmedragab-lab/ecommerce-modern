@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Frontend;
 use App\Models\Product;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Cart;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ProductModalShared extends Component
 {

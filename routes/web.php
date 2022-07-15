@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth', 'role:user|admin|super_admin']], function
     // Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
     // Route::get('/home',Livewire\Frontend\Home::class,'render')->name('home');
     Route::get('shopcart',Livewire\Frontend\ShopCart::class)->name('shopcart');
+    Route::get('wishlist',Livewire\Frontend\wishlist::class)->name('wishlist');
+    Route::get('checkout',Livewire\Frontend\Checkout::class)->name('checkout');
 });
 
 

@@ -66,7 +66,7 @@
                             </td>
                             <td class="p-3 align-middle border-light">
                                 <a class="reset-anchor" wire:click.prevent='removeItem("{{ $item->rowId }}")'>
-                                    <i class="fas fa-trash-alt small" style="color:red;"></i>
+                                    <i class="fas fa-trash-alt small" style="color:red;font-size: 17px;"></i>
                                 </a>
                             </td>
                         </tr>
@@ -88,7 +88,7 @@
                   <div class="col-md-6 text-md-end">
                     @if(Cart::instance('cart')->count() > 0)
                         {{-- <a class="btn btn-dark btn-sm" href="{{ route('checkout') }}">Proceed to checkout</a> --}}
-                        <a class="btn btn-outline-dark btn-sm" href="checkout.html">Procceed to checkout
+                        <a class="btn btn-outline-dark btn-sm" href="{{ route('checkout') }}">Procceed to checkout
                             <i class="fas fa-long-arrow-alt-right ms-2"></i>
                         </a>
                     @endif
@@ -114,14 +114,6 @@
                     <li class="d-flex align-items-center justify-content-between mb-4">
                         <strong class="text-uppercase small font-weight-bold">Total</strong>
                         <span>LE{{ Cart::instance('cart')->total() }}</span>
-                    </li>
-                    <li>
-                      <form action="#">
-                        <div class="input-group mb-0">
-                          <input class="form-control" type="text" placeholder="Enter your coupon">
-                          <button class="btn btn-dark btn-sm w-100" type="submit"> <i class="fas fa-gift me-2"></i>Apply coupon</button>
-                        </div>
-                      </form>
                     </li>
                   </ul>
                 </div>
