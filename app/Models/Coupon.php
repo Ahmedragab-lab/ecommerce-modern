@@ -46,7 +46,7 @@ class Coupon extends Model
     }
     protected function checkGreaterThan($total)
     {
-        return $this->greater_than != '' ? (($this->greater_than >= $total) ? true : false) : true;
+        return $this->greater_than != '' ? (($this->greater_than <= $total) ? true : false) : true;
     }
     protected function doProcess($total)
     {

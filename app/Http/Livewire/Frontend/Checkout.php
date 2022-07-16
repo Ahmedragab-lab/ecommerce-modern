@@ -9,7 +9,9 @@ use Livewire\Component;
 class Checkout extends Component
 {
     use LivewireAlert;
+    public $havecoupon_code;
     public $code;
+    public $coupon;
     public $cart_subtotal;
     public $cart_tax;
     public $cart_total;
@@ -39,8 +41,9 @@ class Checkout extends Component
         ]);
          if ($this->cart_subtotal > 0) {
              $coupon = Coupon::whereCode($this->code)->first();
+            //  $this->coupon = $coupon->used_times;
+
              if(!$coupon) {
-                //  $this->cart_coupon = '';
                  $this->resetFields();
                  $this->alert('error', 'Coupon is invalid!');
              } else {
@@ -52,43 +55,27 @@ class Checkout extends Component
                          'discount' => $couponValue,
                      ]);
                      $this->code = session()->get('coupon')['code'];
+                     $this->coupon = $coupon->used_times +1;
+                     $coupon->update(['used_times' =>  $this->coupon]);
                      $this->emit('updateCart');
                      $this->alert('success', 'coupon is applied successfully');
-                 } else {
+                    } else {
                      $this->alert('error', 'product coupon is invalid');
                  }
              }
          } else {
-            //  $this->cart_coupon = '';
              $this->resetFields();
              $this->alert('error', 'No products available in your cart');
          }
      }
-     public function removeCoupon()
-     {
-         session()->remove('coupon');
-         $this->code = '';
-         $this->emit('updateCart');
-         $this->alert('success', 'Coupon is removed');
+     public function removeCoupon(){
+        $coupon = Coupon::whereCode($this->code)->first();
+        $coupon->update(['used_times' =>  $coupon->used_times -1]);
+        session()->forget('coupon');
+        $this->resetFields();
+        $this->emit('updateCart');
+        $this->alert('info', 'coupon is removed successfully');
      }
-    // public function applyDiscount(){
-    //     $this->validate([
-    //         'code'    =>'required|min:3|max:10|regex:/^[A-Za-z-أ-ي-pL\s\-]+$/u',
-    //        ]);
-    //    $coupon = Coupon::whereCode($this->code)->first();
-    //    if(!$coupon){
-    //         $this->alert('error', 'This coupon is not valid!');
-    //    }else{
-    //         if($code->expire_date < now()){
-    //             $this->alert('error', 'This coupon is expired!');
-    //         }elseif($code->used_times >= $code->use_times){
-    //             $this->alert('error', 'This coupon is already used!');
-    //         }else{
-    //             $this->alert('success', 'Coupon applied successfully!');
-    //         }
-    //     }
-    //     $this->resetFields();
-    // }
     public function render()
     {
         return view('livewire.frontend.checkout')->layout('layouts.master');

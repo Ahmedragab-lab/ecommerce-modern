@@ -134,7 +134,6 @@
                         <thead class="bg-light">
                           <tr>
                             <th class="border-0 " scope="col"> <strong class="text-sm text-uppercase">Product</strong></th>
-                            {{-- <th class="border-0 " scope="col"> <strong class="text-sm text-uppercase">Name</strong></th> --}}
                             <th class="border-0 " scope="col"> <strong class="text-sm text-uppercase">Quantity</strong></th>
                             <th class="border-0 " scope="col"> <strong class="text-sm text-uppercase">Total</strong></th>
                           </tr>
@@ -146,7 +145,6 @@
                                         <img src="{{ asset('images/products/' . $item->model->firstMedia->file_name) }}"
                                             alt=" {{ $item->model->name }}" width="40"/>
                                     </td>
-                                    {{-- <td class="border-0 align-middle">{{$item->name}}</td> --}}
                                     <td class="border-0 align-middle">{{$item->qty}}</td>
                                     <td class="border-0 align-middle">{{$item->subtotal}}</td>
                                 </tr>
@@ -162,20 +160,27 @@
                             <li class="border-bottom my-2"></li>
                             <li class="d-flex align-items-center justify-content-between">
                                 <strong class="small font-weight-bold">Discount <small>({{ getNumbers()->get('discount_code') }})</small></strong>
-                                <span >- LE{{ $cart_discount }}</span>
+                                <span style="color: red;">- LE ({{ $cart_discount }})</span>
                             </li>
                         @endif
                         <li class="d-flex align-items-center justify-content-between">
                             <strong class="text-uppercase small fw-bold">Tax</strong>
-                            <span style="color: red;">({{ getNumbers()->get('taxText') }})</span>
+                            <span style="color: rgb(119, 156, 209);">({{ getNumbers()->get('taxText') }})</span>
                             <span>LE{{ $cart_tax }}</span>
                         </li>
                         <li class="border-bottom my-2"></li>
-                        <li class="d-flex align-items-center justify-content-between">
+                        <li class="d-flex align-items-center justify-content-between mb-3">
                             <strong class="text-uppercase small fw-bold">Total</strong>
                             <span>LE{{ $cart_total }}</span>
                         </li>
                     <li>
+                        <label class="checkbox-field mb-3">
+                            <input class="frm-input " name="have-code" id="have-code" value="1" type="checkbox"
+                                wire:model='havecoupon_code' >
+                            <span class="text-uppercase small ">I have coupon code</span>
+                        </label>
+                        @if($havecoupon_code == 1)
+
                         <form wire:submit.prevent="applyDiscount()">
                             <div class="input-group mb-0">
                                 @if (!session()->has('coupon'))
@@ -195,6 +200,7 @@
                                 @enderror
                             </div>
                         </form>
+                        @endif
                         {{-- <form wire:submit.prevent='applyDiscount()'>
                           <div class="input-group mb-0">
                             <input class="form-control" type="text" placeholder="Enter your coupon" wire:model='code'>
