@@ -89,6 +89,12 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item">
+                <a href="{{ route('admin.payment_method.index') }}" >
+                    <i class="icon-bubbles"></i>
+                    <span class="menu-title" data-i18n="eCommerce">Payment Methods</span>
+                </a>
+            </li>
             {{-- <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title" data-i18n="Templates">Templates</span></a>
                 <ul class="menu-content">
                     <li><a class="menu-item" href="#"><i></i><span data-i18n="Vertical">Vertical</span></a>

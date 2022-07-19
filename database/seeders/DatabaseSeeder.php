@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\UserAddress;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CouponSeeder::class);
         $this->call(ReviewSeeder::class);
         $this->call(WorldSeeder::class);
+        $this->call(UserAddressSeeder::class);
+        $this->call(ShippingCompanySeeder::class);
+        $this->call(PaymentMethodSeeder::class);
     }
 }

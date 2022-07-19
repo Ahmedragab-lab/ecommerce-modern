@@ -13,14 +13,71 @@
         </section>
         <section class="py-5">
           <!-- BILLING ADDRESS-->
-          <h2 class="h5 text-uppercase mb-4">Billing details</h2>
+          <h2 class="h5 text-uppercase mb-4">Shipping Addresses</h2>
           <div class="row">
             <div class="col-lg-8">
-              <form action="#">
+                <div class="row">
+                    {{-- @dd($addresses) --}}
+                    @forelse($addresses as $address)
+                        <div class="col-lg-6">
+                            <button class="btn btn-link text-dark p-0 shadow-0" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#alternateAddress">
+                                <div class="form-check">
+                                <input class="form-check-input"
+                                        id="address-{{ $address->id }}"
+                                        type="radio"
+                                        {{ $customer_address_id == $address->id ? 'checked' : '' }}
+                                        wire:model="customer_address_id"
+                                        wire:click="updateShippingCompany()"
+                                        value="{{ $address->id }}" >
+                                <label class="form-check-label"
+                                       for="address-{{ $address->id }}">
+                                    <b>{{ $address->address_title }}</b>
+                                    <small>
+                                        {{ $address->address }} <br>
+                                        {{ $address->country->name }} {{ $address->state->name }} {{ $address->city->name }}
+                                    </small>
+                                </label>
+                                </div>
+                            </button>
+                        </div>
+                    @empty
+                    <p> No Addresses found </p>
+                    @endforelse
+                </div>
+                @if ($customer_address_id != 0)
+                    <h2 class="h5 text-uppercase mb-4">Shipping way</h2>
+                    <div class="row">
+                        @forelse($shipping_companies as $shipping_company)
+                            <div class="col-6 form-group">
+                                <div class="custom-control custom-radio">
+                                    <input
+                                        type="radio"
+                                        id="shipping-company-{{ $shipping_company->id }}"
+                                        class="custom-control-input"
+                                        wire:model="shipping_company_id"
+                                        wire:click="updateShippingCost()"
+                                        {{ intval($shipping_company_id) == $shipping_company->id ? 'checked' : '' }}
+                                        value="{{ $shipping_company->id }}">
+                                    <label for="shipping-company-{{ $shipping_company->id }}" class="custom-control-label text-small">
+                                        <b>{{ $shipping_company->name }}</b>
+                                        <small>
+                                            {{ $address->description }} - (${{ $shipping_company->cost }})
+                                        </small>
+                                    </label>
+                                </div>
+                            </div>
+
+                        @empty
+                            <p>No shipping companies found</p>
+                        @endforelse
+                    </div>
+                @endif
+              {{-- <form action="#">
                 <div class="row gy-3">
                   <div class="col-lg-6">
                     <label class="form-label text-sm text-uppercase" for="firstName">First name </label>
-                    <input class="form-control form-control-lg" type="text" id="firstName" placeholder="Enter your first name">
+                    <input class="form-control form-control-lg" type="text" id="firstName" placeholder="Enter your first name" value="{{ Auth::user()->firstname }}">
                   </div>
                   <div class="col-lg-6">
                     <label class="form-label text-sm text-uppercase" for="lastName">Last name </label>
@@ -61,7 +118,8 @@
                     <input class="form-control form-control-lg" type="text" id="state">
                   </div>
                   <div class="col-lg-6">
-                    <button class="btn btn-link text-dark p-0 shadow-0" type="button" data-bs-toggle="collapse" data-bs-target="#alternateAddress">
+                    <button class="btn btn-link text-dark p-0 shadow-0" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#alternateAddress">
                       <div class="form-check">
                         <input class="form-check-input" id="alternateAddressCheckbox" type="checkbox">
                         <label class="form-check-label" for="alternateAddressCheckbox">Alternate billing address</label>
@@ -121,7 +179,7 @@
                     <button class="btn btn-dark" type="submit">Place order</button>
                   </div>
                 </div>
-              </form>
+              </form> --}}
             </div>
             <!-- ORDER SUMMARY-->
             <div class="col-lg-4">
@@ -146,7 +204,7 @@
                                             alt=" {{ $item->model->name }}" width="40"/>
                                     </td>
                                     <td class="border-0 align-middle">{{$item->qty}}</td>
-                                    <td class="border-0 align-middle">{{$item->subtotal}}</td>
+                                    <td class="border-0 align-middle">LE {{$item->subtotal}}</td>
                                 </tr>
                           @empty
                           @endforelse
@@ -154,7 +212,7 @@
                     </table>
                         <li class="d-flex align-items-center justify-content-between">
                             <strong class="text-uppercase small font-weight-bold">Subtotal</strong>
-                            <span >LE{{ $cart_subtotal }}</span>
+                            <span >LE {{ $cart_subtotal }}</span>
                         </li>
                         @if(session()->has('coupon'))
                             <li class="border-bottom my-2"></li>
@@ -163,15 +221,22 @@
                                 <span style="color: red;">- LE ({{ $cart_discount }})</span>
                             </li>
                         @endif
+                        @if(session()->has('shipping'))
+                            <li class="border-bottom my-2"></li>
+                            <li class="d-flex align-items-center justify-content-between">
+                                <strong class="small font-weight-bold">Shipping <small>({{ getNumbers()->get('shipping_code') }})</small></strong>
+                                <span class="text-muted small">LE {{ $cart_shipping }}</span>
+                            </li>
+                        @endif
                         <li class="d-flex align-items-center justify-content-between">
                             <strong class="text-uppercase small fw-bold">Tax</strong>
                             <span style="color: rgb(119, 156, 209);">({{ getNumbers()->get('taxText') }})</span>
-                            <span>LE{{ $cart_tax }}</span>
+                            <span>LE {{ $cart_tax }}</span>
                         </li>
                         <li class="border-bottom my-2"></li>
                         <li class="d-flex align-items-center justify-content-between mb-3">
                             <strong class="text-uppercase small fw-bold">Total</strong>
-                            <span>LE{{ $cart_total }}</span>
+                            <span>LE {{ $cart_total }}</span>
                         </li>
                     <li>
                         <label class="checkbox-field mb-3">

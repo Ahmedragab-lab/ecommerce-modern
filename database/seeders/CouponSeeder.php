@@ -38,5 +38,16 @@ class CouponSeeder extends Seeder
             'greater_than'      => null,
             'status'            => 1,
         ]);
+        Coupon::create([
+            'code'              => 'zzzz',
+            'type'              => 'fixed',
+            'value'             => 100,
+            'description'       => 'العيد الكبير',
+            'use_times'         => 5,
+            'start_date'        => Carbon::now(),
+            'expire_date'       => Carbon::now()->addWeek(),
+            'greater_than'      => 1000,
+            'status'            => 1,
+        ]);
     }
 }

@@ -12,7 +12,8 @@ Route::get('category/{slug}',Livewire\Frontend\Category::class)->name('category'
 Route::get('product_details/{slug}',Livewire\Frontend\ProductDetails::class)->name('product_details');
 Route::get('shop/{slug?}',Livewire\Frontend\Shop::class)->name('shop');
 Route::get('shoptag/{slug?}',Livewire\Frontend\ShopTag::class)->name('shoptag');
-
+Route::get('shopcart',Livewire\Frontend\ShopCart::class)->name('shopcart');
+Route::get('wishlist',Livewire\Frontend\wishlist::class)->name('wishlist');
 
 
 // Route::get('/',[Frontend\HomeController::class,'index']);
@@ -23,10 +24,6 @@ Route::get('shoptag/{slug?}',Livewire\Frontend\ShopTag::class)->name('shoptag');
 
 Auth::routes();
 Route::group(['middleware' => ['auth', 'role:user|admin|super_admin']], function () {
-    // Route::get('/home',[Frontend\HomeController::class,'index'])->name('home');
-    // Route::get('/home',Livewire\Frontend\Home::class,'render')->name('home');
-    Route::get('shopcart',Livewire\Frontend\ShopCart::class)->name('shopcart');
-    Route::get('wishlist',Livewire\Frontend\wishlist::class)->name('wishlist');
     Route::get('checkout',Livewire\Frontend\Checkout::class)->name('checkout');
 });
 
@@ -70,6 +67,8 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function(){
 
         Route::resource('/cities',Dashboard\CityController::class);
         Route::delete('/cities/bulk_delete/{ids}', [Dashboard\CityController::class,'bulkDelete'])->name('cities.bulk_delete');
+        //payment method
+        Route::resource('/payment_method',Dashboard\PaymentMethodController::class);
     });
 });
 
